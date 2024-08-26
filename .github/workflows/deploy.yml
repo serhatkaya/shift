@@ -36,8 +36,8 @@ jobs:
           git checkout --orphan build-output-branch
           git reset --hard
           mkdir -p build_output
-          cp -r dist/* build_output/
-          git add build_output/
+          cp -r dist/* .
+          git add *
           git commit -m "Add build output for version ${{ env.VERSION }}"
 
       - name: Create a tag from the build output branch
