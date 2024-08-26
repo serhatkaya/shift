@@ -29,6 +29,15 @@ jobs:
         id: version
         run: echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
 
+      - name: Get the previous version tag
+        id: prev_version
+        run: echo "PREV_VERSION=$(git describe --tags --abbrev=0 HEAD^)" >> $GITHUB_ENV
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "CHANGELOG=$(git log --pretty=format:"* %s (%h)" ${{ env.PREV_VERSION }}..HEAD)" >> $GITHUB_ENV
+
       - name: Create a temporary branch for the build output
         run: |
           git config --local user.name "GitHub Action"
@@ -55,8 +64,7 @@ jobs:
           release_name: "Release v${{ env.VERSION }}"
           body: |
             Changes in this Release:
-            - First Change
-            - Second Change
+            ${{ env.CHANGELOG }}
           draft: false
           prerelease: false
 
