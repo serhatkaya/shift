@@ -29,20 +29,20 @@ jobs:
         id: version
         run: echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
 
-      - name: Create a tag
+      - name: Create a temporary branch for the build output
         run: |
           git config --local user.name "GitHub Action"
           git config --local user.email "action@github.com"
-          git tag -a "v${{ env.VERSION }}" -m "Release version ${{ env.VERSION }}"
-          git push origin "v${{ env.VERSION }}"
-
-      - name: Push build output to tag
-        run: |
-          git checkout "v${{ env.VERSION }}"
+          git checkout --orphan build-output-branch
+          git reset --hard
           mkdir -p build_output
           cp -r dist/* build_output/
           git add build_output/
           git commit -m "Add build output for version ${{ env.VERSION }}"
+
+      - name: Create a tag from the build output branch
+        run: |
+          git tag -a "v${{ env.VERSION }}" -m "Release version ${{ env.VERSION }}"
           git push origin "v${{ env.VERSION }}"
 
       - name: Create Release
@@ -60,8 +60,5 @@ jobs:
           draft: false
           prerelease: false
 
-      # - name: Upload Build Artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: build-output
-      #     path: ./build_output
+      - name: Cleanup
+        run: git checkout main
