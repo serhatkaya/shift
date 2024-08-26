@@ -1,0 +1,1 @@
+{"mappings":"ACAA,OAAO,WAAW,CAAG","sources":["<anon>","src/assets/version.js"],"sourcesContent":["window.APP_VERSION = \"1.0.3\";\n\n//# sourceMappingURL=index.b7fd06f4.js.map\n","window.APP_VERSION = '1.0.3';"],"names":["window","APP_VERSION"],"version":3,"file":"index.b7fd06f4.js.map"}
