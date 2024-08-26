@@ -1,4 +1,8 @@
 window.addEventListener("DOMContentLoaded", () => {
+  const versionElement = document.getElementById("version");
+  if (versionElement) {
+    versionElement.textContent = window.APP_VERSION || "unknown";
+  }
   const startDate = "2024-06-27T12:00:00";
   const names = ["S.K", "M.B.D", "G.U", "S.E"];
 

@@ -1,14 +1,14 @@
 {
   "name": "shift",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build"
+    "start": "node src/build/generateVersion.js && parcel",
+    "build": "node src/build/generateVersion.js && parcel build"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
     "parcel": "^2.12.0"

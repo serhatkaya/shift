@@ -2,13 +2,16 @@
   <head>
     <title>Shift List</title>
     <link rel="stylesheet" href="./assets/styles.css" />
-    <meta content="deploy-test" />
   </head>
   <body cz-shortcut-listen="true">
     <div class="container">
       <div class="shift-info">
         <div class="color-info">
           <table>
+            <tr>
+              <td>App Version</td>
+              <td id="version"></td>
+            </tr>
             <tr>
               <td>Current:</td>
               <td><div class="box current"></div></td>
@@ -36,6 +39,7 @@
         <tbody id="shiftTableBody"></tbody>
       </table>
     </div>
+    <script src="./assets/version.js"></script>
     <script src="./assets/script.js"></script>
   </body>
 </html>
