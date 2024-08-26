@@ -40,7 +40,7 @@ jobs:
         run: |
           git checkout "v${{ env.VERSION }}"
           mkdir -p build_output
-          cp -r ./dist/* build_output/
+          cp -r dist/* build_output/
           git add build_output/
           git commit -m "Add build output for version ${{ env.VERSION }}"
           git push origin "v${{ env.VERSION }}"
