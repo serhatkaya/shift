@@ -1,0 +1,87 @@
+:root {
+  --primary: #ff9000;
+  --current: #cbe2b5;
+  --highlight: #7fa1c3;
+}
+.highlight {
+  background-color: var(--current) !important;
+  color: #222;
+}
+.highlight + * {
+  background-color: var(--highlight) !important;
+  color: white;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  color: var(--primary);
+  margin-top: 20px;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table thead {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  font-size: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.shift-info {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+}
+.color-info {
+  position: absolute;
+}
+
+.box {
+  height: 20px;
+  width: 20px;
+  border-radius: 4px;
+}
+.box.current {
+  background-color: var(--current);
+}
+.box.upcoming {
+  background-color: var(--highlight);
+}

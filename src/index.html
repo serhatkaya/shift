@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>Shift List</title>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body cz-shortcut-listen="true">
+    <div class="container">
+      <div class="shift-info">
+        <div class="color-info">
+          <table>
+            <tr>
+              <td>Current:</td>
+              <td><div class="box current"></div></td>
+            </tr>
+            <tr>
+              <td>Upcoming:</td>
+              <td><div class="box upcoming"></div></td>
+            </tr>
+          </table>
+        </div>
+        <h2>Current Shift</h2>
+        <p id="currentShift"></p>
+        <h2>Next Shift</h2>
+        <p id="nextShift"></p>
+      </div>
+      <h2>Yearly Shift</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>THE GUARDIAN</th>
+            <th>Shift Start</th>
+            <th>Shift End</th>
+          </tr>
+        </thead>
+        <tbody id="shiftTableBody"></tbody>
+      </table>
+    </div>
+    <script src="./assets/script.js"></script>
+  </body>
+</html>

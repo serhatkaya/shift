@@ -1,0 +1,67 @@
+name: Build, Tag, and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build, Tag, and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16" # Adjust the Node.js version if necessary
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm run build
+
+      - name: Get the current version from package.json
+        id: version
+        run: echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
+
+      - name: Create a tag
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git tag -a "v${{ env.VERSION }}" -m "Release version ${{ env.VERSION }}"
+          git push origin "v${{ env.VERSION }}"
+
+      - name: Push build output to tag
+        run: |
+          git checkout "v${{ env.VERSION }}"
+          mkdir -p build_output
+          cp -r ./dist/* build_output/
+          git add build_output/
+          git commit -m "Add build output for version ${{ env.VERSION }}"
+          git push origin "v${{ env.VERSION }}"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          release_name: "Release v${{ env.VERSION }}"
+          body: |
+            Changes in this Release:
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
+
+      # - name: Upload Build Artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: build-output
+      #     path: ./build_output
