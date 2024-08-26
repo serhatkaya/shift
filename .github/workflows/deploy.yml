@@ -70,7 +70,8 @@ jobs:
           script: |
             cd ${{ secrets.SERVER_PATH }}
             curl -LJO https://github.com/serhatkaya/shift/archive/refs/tags/v${{ env.VERSION }}.zip
-            unzip -o shift-${{ env.VERSION }}.zip -d ./
+            unzip -o shift-${{ env.VERSION }}.zip -d ./ && mv ./shift-${{ env.VERSION }}/* ./
+            rm -rf shift-${{ env.VERSION }}
             rm shift-${{ env.VERSION }}.zip
 
       - name: Cleanup
