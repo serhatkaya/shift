@@ -1,6 +1,6 @@
 {
   "name": "shift",
-  "version": "1.0.0-build-test4",
+  "version": "1.0.0-build-test5",
   "source": "src/index.html",
   "scripts": {
     "start": "parcel",

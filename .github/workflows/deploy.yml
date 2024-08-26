@@ -1,4 +1,4 @@
-name: Build, Tag, and Release
+name: Build, Tag, Release, and Deploy
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build, Tag, and Release
+    name: Build, Tag, Release, and Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16" # Adjust the Node.js version if necessary
+          node-version: "16"
 
       - name: Install dependencies
         run: npm install
@@ -59,6 +59,19 @@ jobs:
             - Second Change
           draft: false
           prerelease: false
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          command_timeout: 20m
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            cd ${{ secrets.SERVER_PATH }}
+            curl -LJO https://github.com/serhatkaya/shift/archive/refs/tags/v${{ env.VERSION }}.zip
+            unzip -o v${{ env.VERSION }}.zip -d ./
+            rm v${{ env.VERSION }}.zip
 
       - name: Cleanup
         run: git checkout main
