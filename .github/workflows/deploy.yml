@@ -37,7 +37,7 @@ jobs:
           git reset --hard
           mkdir -p build_output
           cp -r dist/* .
-          git add *
+          git add . :!node_modules/
           git commit -m "Add build output for version ${{ env.VERSION }}"
 
       - name: Create a tag from the build output branch
